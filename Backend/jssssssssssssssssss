@@ -86,10 +86,10 @@ const allowedOrigins = [
   'http://localhost:8012',
   'http://13.50.16.239:8026',
   'http://13.50.16.239:8046',
-  'http://3.85.61.23:7019',
-  'http://3.85.61.23:7020',
-  'http://3.85.61.23:8020',
-  'http://3.85.61.23:8021',
+  'http://13.50.16.239:8888',
+  'http://13.50.16.239:8889',
+  'http://13.50.16.239:8034',
+  'http://13.50.16.239:8035',
   'http://13.50.16.239:8051',
   'http://13.50.16.239:8025',
   'http://13.50.16.239:8045',
@@ -475,9 +475,9 @@ app.post('/api/signup', upload.single('profileImage'), async (req, res) => {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
-  const emailRegex = /^[a-zA-Z0-9]+([._-][a-zA-Z0-9]+)*@astrolitetech\.com$/;
+  const emailRegex = /^[a-zA-Z0-9]+([._-][a-zA-Z0-9]+)*@(gmail\.com|outlook\.com)$/;
   if (!emailRegex.test(email)) {
-    return res.status(400).json({ error: 'Only astrolitetech.com domain allowed' });
+    return res.status(400).json({ error: 'Only gmail.com or outlook.com domains allowed' });
   }
 
   if (password.length < 8) {
@@ -909,8 +909,8 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 3404;
 server.listen(PORT, '0.0.0.0', () => {
-  logger.info(`Server running on http://44.223.23.145:${PORT}`);
-  logger.info(`WebSocket server running on ws://44.223.23.145:${PORT}`);
+  logger.info(`Server running on http://13.50.16.239:${PORT}`);
+  logger.info(`WebSocket server running on ws://13.50.16.239:${PORT}`);
   logger.info(`Allowed CORS origins: ${allowedOrigins.join(', ')}`);
   logger.info(`Environment: ${process.env.NODE_ENV || 'development'}`);
   logger.info(`Database config:`, {

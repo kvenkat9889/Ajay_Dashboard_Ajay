@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +7,7 @@
     <title>Forgot Password</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* Base Styles */
         * {
             margin: 0;
             padding: 0;
@@ -23,6 +25,7 @@
             background-color: #f0f2f5;
         }
 
+        /* Container Styles */
         .container {
             position: relative;
             width: 100%;
@@ -31,6 +34,7 @@
             overflow: hidden;
         }
 
+        /* Circle Background Elements */
         .big-circle {
             position: absolute;
             width: 1000px;
@@ -82,6 +86,7 @@
             z-index: 2;
         }
 
+        /* Welcome Text Styles */
         .welcome-text {
             position: absolute;
             top: 35%;
@@ -112,6 +117,7 @@
             animation-delay: 3s;
         }
 
+        /* Form Container Styles */
         .form-container {
             position: absolute;
             top: 50%;
@@ -134,6 +140,7 @@
             font-weight: 600;
         }
 
+        /* Input Field Styles */
         .input-container {
             position: relative;
             margin-bottom: 30px;
@@ -171,6 +178,7 @@
             color: #0077ff;
         }
 
+        /* Error Message Styles */
         .error-message {
             color: #ff3333;
             font-size: 13px;
@@ -181,9 +189,9 @@
             top: 100%;
             left: 0;
             width: 100%;
-            display: none;
         }
 
+        /* Password Field Specific Styles */
         .password-container {
             position: relative;
         }
@@ -226,6 +234,7 @@
             display: none;
         }
 
+        /* Button Styles */
         .form-button {
             width: 100%;
             padding: 14px;
@@ -253,6 +262,7 @@
             box-shadow: none;
         }
 
+        /* Links Styles */
         .links {
             margin-top: 20px;
             font-size: 15px;
@@ -271,6 +281,7 @@
             text-decoration: underline;
         }
 
+        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -325,6 +336,7 @@
             font-weight: bold;
         }
 
+        /* Notification Styles */
         .alert {
             position: fixed;
             top: 20px;
@@ -359,6 +371,7 @@
             to { transform: translateX(100%); opacity: 0; }
         }
 
+        /* Animations */
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
@@ -380,6 +393,7 @@
             to { opacity: 1; }
         }
 
+        /* Responsive Design */
         @media (max-width: 1024px) {
             .big-circle {
                 width: 800px;
@@ -582,8 +596,8 @@
                     <label for="email">Email</label>
                     <span id="email-checkmark" class="checkmark">✓</span>
                     <span id="email-cross" class="checkmark invalid">✗</span>
-                    <div id="email-error" class="error-message"></div>
                 </div>
+                <div id="email-error" class="error-message"></div>
                 
                 <div class="input-container password-container">
                     <input type="password" id="newPassword" placeholder=" " required>
@@ -591,16 +605,16 @@
                     <span class="info-icon" onclick="toggleModal()">i</span>
                     <span class="eye-icon" onclick="togglePassword('newPassword')">👁️</span>
                     <span id="new-password-checkmark" class="checkmark">✓</span>
-                    <div id="new-password-error" class="error-message"></div>
                 </div>
+                <div id="new-password-error" class="error-message"></div>
                 
                 <div class="input-container password-container">
                     <input type="password" id="confirmNewPassword" placeholder=" " required>
                     <label for="confirmNewPassword">Confirm New Password</label>
                     <span class="eye-icon" onclick="togglePassword('confirmNewPassword')">👁️</span>
                     <span id="confirm-password-checkmark" class="checkmark">✓</span>
-                    <div id="confirm-password-error" class="error-message"></div>
                 </div>
+                <div id="confirm-password-error" class="error-message"></div>
                 
                 <button type="submit" id="resetPasswordBtn" class="form-button" disabled>Reset Password</button>
             </form>
@@ -623,263 +637,227 @@
         </div>
     </div>
     <script>
-        let isEmailValid = false;
-        let isNewPasswordValid = false;
-        let isConfirmPasswordValid = false;
+       let isEmailValid = false;
+let isNewPasswordValid = false;
+let isConfirmPasswordValid = false;
 
-        // Show Alert
-        function showAlert(type, message) {
-            const existingAlerts = document.querySelectorAll('.alert');
-            existingAlerts.forEach(alert => alert.remove());
+// Show Alert
+function showAlert(type, message) {
+    const existingAlerts = document.querySelectorAll('.alert');
+    existingAlerts.forEach(alert => alert.remove()); // Remove duplicate alerts
 
-            const alert = document.createElement('div');
-            alert.className = `alert ${type}`;
-            alert.innerHTML = `
-                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
-                ${message}
-            `;
-            document.body.appendChild(alert);
-            setTimeout(() => alert.remove(), 3000);
-        }
+    const alert = document.createElement('div');
+    alert.className = `alert ${type}`;
+    alert.innerHTML = `
+        <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+        ${message}
+    `;
+    document.body.appendChild(alert);
+    setTimeout(() => alert.remove(), 3000);
+}
 
-        // Toggle Password Visibility
-        function togglePassword(id) {
-            const passwordInput = document.getElementById(id);
-            const eyeIcon = passwordInput.parentElement.querySelector('.eye-icon');
-            passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
-            eyeIcon.textContent = passwordInput.type === 'password' ? '👁️' : '🔓';
-        }
+// Toggle Password Visibility
+function togglePassword(id) {
+    const passwordInput = document.getElementById(id);
+    const eyeIcon = passwordInput.parentElement.querySelector('.eye-icon');
+    passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
+    eyeIcon.textContent = passwordInput.type === 'password' ? '👁️' : '🔓';
+}
 
-        // Toggle Modal
-        function toggleModal() {
-            const modal = document.getElementById('passwordModal');
-            modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
-        }
+// Toggle Modal
+function toggleModal() {
+    const modal = document.getElementById('passwordModal');
+    modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+}
 
-        // Update Reset Button State
-        function updateResetButton() {
-            const resetButton = document.getElementById('resetPasswordBtn');
-            resetButton.disabled = !(isEmailValid && isNewPasswordValid && isConfirmPasswordValid);
-        }
+// Update Reset Button State
+function updateResetButton() {
+    const resetButton = document.getElementById('resetPasswordBtn');
+    resetButton.disabled = !(isEmailValid && isNewPasswordValid && isConfirmPasswordValid);
+}
 
-        // Clear Error Messages
-        function clearErrors() {
-            document.getElementById('email-error').style.display = 'none';
-            document.getElementById('new-password-error').style.display = 'none';
-            document.getElementById('confirm-password-error').style.display = 'none';
-        }
+// Debounce function to limit API calls
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
 
-        // Validate Email
-        async function validateEmail(email) {
-            const emailError = document.getElementById('email-error');
-            const emailCheckmark = document.getElementById('email-checkmark');
-            const emailCross = document.getElementById('email-cross');
+// Check Email
+const checkEmail = debounce(async (email) => {
+    const emailError = document.getElementById('email-error');
+    const emailCheckmark = document.getElementById('email-checkmark');
+    const emailCross = document.getElementById('email-cross');
 
-            if (!email) {
-                emailCheckmark.style.display = 'none';
-                emailCross.style.display = 'none';
-                isEmailValid = false;
-                return false;
-            }
+    if (!email) {
+        emailError.textContent = '';
+        emailCheckmark.style.display = 'none';
+        emailCross.style.display = 'none';
+        isEmailValid = false;
+        updateResetButton();
+        return;
+    }
 
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                emailError.textContent = 'Invalid email format';
-                emailError.style.display = 'block';
-                emailCheckmark.style.display = 'none';
-                emailCross.style.display = 'block';
-                isEmailValid = false;
-                return false;
-            }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        emailError.textContent = 'Invalid email format';
+        emailCheckmark.style.display = 'none';
+        emailCross.style.display = 'block';
+        isEmailValid = false;
+        updateResetButton();
+        return;
+    }
 
-            try {
-                const response = await fetch('http://13.50.16.239:3404/check-email-data', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email })
-                });
-                const data = await response.json();
-                
-                if (data.exists) {
-                    emailCheckmark.style.display = 'block';
-                    emailCross.style.display = 'none';
-                    isEmailValid = true;
-                    return true;
-                } else {
-                    emailError.textContent = 'Email not registered';
-                    emailError.style.display = 'block';
-                    emailCheckmark.style.display = 'none';
-                    emailCross.style.display = 'block';
-                    isEmailValid = false;
-                    return false;
-                }
-            } catch (err) {
-                emailError.textContent = 'Error checking email';
-                emailError.style.display = 'block';
-                emailCheckmark.style.display = 'none';
-                emailCross.style.display = 'block';
-                isEmailValid = false;
-                return false;
-            }
-        }
-
-        // Validate New Password
-        function validateNewPassword() {
-            const newPassword = document.getElementById('newPassword').value;
-            const newPasswordError = document.getElementById('new-password-error');
-            const newPasswordCheckmark = document.getElementById('new-password-checkmark');
-
-            const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
-            
-            if (!newPassword) {
-                newPasswordCheckmark.style.display = 'none';
-                isNewPasswordValid = false;
-                return false;
-            } else if (newPassword.length < 8) {
-                newPasswordError.textContent = 'Password must be at least 8 characters';
-                newPasswordError.style.display = 'block';
-                newPasswordCheckmark.style.display = 'none';
-                isNewPasswordValid = false;
-                return false;
-            } else if (!passwordRegex.test(newPassword)) {
-                newPasswordError.textContent = 'Include uppercase, number, and symbol';
-                newPasswordError.style.display = 'block';
-                newPasswordCheckmark.style.display = 'none';
-                isNewPasswordValid = false;
-                return false;
-            } else {
-                newPasswordCheckmark.style.display = 'block';
-                isNewPasswordValid = true;
-                return true;
-            }
-        }
-
-        // Validate Confirm Password
-        function validateConfirmPassword() {
-            const newPassword = document.getElementById('newPassword').value;
-            const confirmNewPassword = document.getElementById('confirmNewPassword').value;
-            const confirmPasswordError = document.getElementById('confirm-password-error');
-            const confirmPasswordCheckmark = document.getElementById('confirm-password-checkmark');
-
-            if (!confirmNewPassword) {
-                confirmPasswordCheckmark.style.display = 'none';
-                isConfirmPasswordValid = false;
-                return false;
-            } else if (confirmNewPassword !== newPassword) {
-                confirmPasswordError.textContent = 'Passwords do not match';
-                confirmPasswordError.style.display = 'block';
-                confirmPasswordCheckmark.style.display = 'none';
-                isConfirmPasswordValid = false;
-                return false;
-            } else {
-                confirmPasswordCheckmark.style.display = 'block';
-                isConfirmPasswordValid = true;
-                return true;
-            }
-        }
-
-        // Debounce function to limit API calls
-        function debounce(func, wait) {
-            let timeout;
-            return function executedFunction(...args) {
-                const later = () => {
-                    clearTimeout(timeout);
-                    func(...args);
-                };
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-            };
-        }
-
-        // Check Email with Debounce
-        const checkEmail = debounce(async (email) => {
-            await validateEmail(email);
-            updateResetButton();
-        }, 500);
-
-        // Event Listeners
-        document.getElementById('email').addEventListener('input', (e) => {
-            clearErrors();
-            const email = e.target.value.trim();
-            checkEmail(email);
+    try {
+        const response = await fetch('http://13.50.16.239:3404/check-email-data', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
         });
+        const data = await response.json();
+        
+        if (data.exists) {
+            emailError.textContent = '';
+            emailCheckmark.style.display = 'block';
+            emailCross.style.display = 'none';
+            isEmailValid = true;
+        } else {
+            emailError.textContent = 'Email not registered';
+            emailCheckmark.style.display = 'none';
+            emailCross.style.display = 'block';
+            isEmailValid = false;
+        }
+    } catch (err) {
+        emailError.textContent = 'Error checking email';
+        emailCheckmark.style.display = 'none';
+        emailCross.style.display = 'block';
+        isEmailValid = false;
+    }
+    updateResetButton();
+}, 500);
 
-        document.getElementById('newPassword').addEventListener('input', () => {
-            clearErrors();
-            validateNewPassword();
-            validateConfirmPassword();
-            updateResetButton();
+// Validate New Password
+function validateNewPassword() {
+    const newPassword = document.getElementById('newPassword').value;
+    const newPasswordError = document.getElementById('new-password-error');
+    const newPasswordCheckmark = document.getElementById('new-password-checkmark');
+
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+    
+    if (!newPassword) {
+        newPasswordError.textContent = 'Password is required';
+        newPasswordCheckmark.style.display = 'none';
+        isNewPasswordValid = false;
+    } else if (newPassword.length < 8) {
+        newPasswordError.textContent = 'Password must be at least 8 characters';
+        newPasswordCheckmark.style.display = 'none';
+        isNewPasswordValid = false;
+    } else if (!passwordRegex.test(newPassword)) {
+        newPasswordError.textContent = 'Include uppercase, number, and symbol';
+        newPasswordCheckmark.style.display = 'none';
+        isNewPasswordValid = false;
+    } else {
+        newPasswordError.textContent = '';
+        newPasswordCheckmark.style.display = 'block';
+        isNewPasswordValid = true;
+    }
+    validateConfirmPassword(); // Re-validate confirm password when new password changes
+    updateResetButton();
+}
+
+// Validate Confirm Password
+function validateConfirmPassword() {
+    const newPassword = document.getElementById('newPassword').value;
+    const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+    const confirmPasswordError = document.getElementById('confirm-password-error');
+    const confirmPasswordCheckmark = document.getElementById('confirm-password-checkmark');
+
+    if (!confirmNewPassword) {
+        confirmPasswordError.textContent = 'Please confirm your password';
+        confirmPasswordCheckmark.style.display = 'none';
+        isConfirmPasswordValid = false;
+    } else if (confirmNewPassword !== newPassword) {
+        confirmPasswordError.textContent = 'Passwords do not match';
+        confirmPasswordCheckmark.style.display = 'none';
+        isConfirmPasswordValid = false;
+    } else {
+        confirmPasswordError.textContent = '';
+        confirmPasswordCheckmark.style.display = 'block';
+        isConfirmPasswordValid = true;
+    }
+    updateResetButton();
+}
+
+// Event Listeners
+document.getElementById('email').addEventListener('input', (e) => {
+    const email = e.target.value.trim();
+    checkEmail(email);
+});
+
+document.getElementById('newPassword').addEventListener('input', validateNewPassword);
+document.getElementById('confirmNewPassword').addEventListener('input', validateConfirmPassword);
+
+document.getElementById('forgotPasswordForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    if (!isEmailValid || !isNewPasswordValid || !isConfirmPasswordValid) {
+        document.getElementById('confirm-password-error').textContent = 'Please correct all errors';
+        showAlert('error', 'Please correct all errors');
+        return;
+    }
+
+    const email = document.getElementById('email').value.trim();
+    const newPassword = document.getElementById('newPassword').value;
+    const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+    const submitButton = document.getElementById('resetPasswordBtn');
+
+    submitButton.disabled = true;
+    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Resetting...';
+
+    try {
+        const response = await fetch('http://13.50.16.239:3404/api/forgot', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, newPassword, confirmNewPassword })
         });
+        const data = await response.json();
+        
+        if (response.ok) {
+            showAlert('success', data.message || 'Password reset successfully!');
+            setTimeout(() => {
+                window.location.href = 'http://13.50.16.239:8012/';
+            }, 1000);
+        } else {
+            document.getElementById('confirm-password-error').textContent = data.error || 'Password reset failed';
+            showAlert('error', data.error || 'Password reset failed');
+        }
+    } catch (err) {
+        document.getElementById('confirm-password-error').textContent = 'Error connecting to server';
+        showAlert('error', 'Error connecting to server');
+    } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Reset Password';
+    }
+});
 
-        document.getElementById('confirmNewPassword').addEventListener('input', () => {
-            clearErrors();
-            validateConfirmPassword();
-            updateResetButton();
-        });
+// Close modal when clicking outside
+window.addEventListener('click', (e) => {
+    const modal = document.getElementById('passwordModal');
+    if (e.target === modal) {
+        toggleModal();
+    }
+});
 
-        document.getElementById('forgotPasswordForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const email = document.getElementById('email').value.trim();
-            const newPassword = document.getElementById('newPassword').value;
-            const confirmNewPassword = document.getElementById('confirmNewPassword').value;
-            const submitButton = document.getElementById('resetPasswordBtn');
-
-            // Validate all fields
-            const isEmailValidNow = await validateEmail(email);
-            const isNewPasswordValidNow = validateNewPassword();
-            const isConfirmPasswordValidNow = validateConfirmPassword();
-
-            if (!isEmailValidNow || !isNewPasswordValidNow || !isConfirmPasswordValidNow) {
-                document.getElementById('confirm-password-error').textContent = 'Please correct all errors';
-                document.getElementById('confirm-password-error').style.display = 'block';
-                showAlert('error', 'Please correct all errors');
-                return;
-            }
-
-            submitButton.disabled = true;
-            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Resetting...';
-
-            try {
-                const response = await fetch('http://13.50.16.239:3404/api/forgot-password', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email })
-                });
-                const data = await response.json();
-                
-                if (response.ok) {
-                    showAlert('success', data.message || 'Password reset link sent to your email!');
-                    setTimeout(() => {
-                        window.location.href = 'http://13.50.16.239:8012/';
-                    }, 1000);
-                } else {
-                    document.getElementById('confirm-password-error').textContent = data.error || 'Password reset failed';
-                    document.getElementById('confirm-password-error').style.display = 'block';
-                    showAlert('error', data.error || 'Password reset failed');
-                }
-            } catch (err) {
-                document.getElementById('confirm-password-error').textContent = 'Error connecting to server';
-                document.getElementById('confirm-password-error').style.display = 'block';
-                showAlert('error', 'Error connecting to server');
-            } finally {
-                submitButton.disabled = false;
-                submitButton.textContent = 'Reset Password';
-            }
-        });
-
-        // Close modal when clicking outside
-        window.addEventListener('click', (e) => {
-            const modal = document.getElementById('passwordModal');
-            if (e.target === modal) {
-                toggleModal();
-            }
-        });
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('email').focus();
-        });
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('email').focus();
+});
     </script>
 </body>
 </html>

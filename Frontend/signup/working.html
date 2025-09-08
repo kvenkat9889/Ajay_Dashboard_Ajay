@@ -209,7 +209,7 @@
 
         .password-container .eye-icon {
             position: absolute;
-            right: 10px;
+            right: 30px;
             top: 50%;
             transform: translateY(-50%);
             cursor: pointer;
@@ -219,7 +219,7 @@
 
         .info-icon {
             position: absolute;
-            right: 35px;
+            right: 55px;
             top: 50%;
             transform: translateY(-50%);
             cursor: pointer;
@@ -491,11 +491,7 @@
             }
 
             .info-icon {
-                right: 35px;
-            }
-            
-            .eye-icon {
-                right: 10px;
+                right: 50px;
             }
         }
 
@@ -544,7 +540,7 @@
 
             .input-container input {
                 font-size: 14px;
-                padding: 8px 35px 8px 8px;
+                padding: 8px 45px 8px 8px;
             }
 
             .input-container label {
@@ -552,13 +548,13 @@
             }
 
             .info-icon {
-                right: 30px;
+                right: 45px;
                 font-size: 14px;
             }
 
             .eye-icon {
-                right: 10px;
-                font-size: 14px;
+                right: 25px;
+                font-size: 16px;
             }
 
             .checkmark {
@@ -605,35 +601,35 @@
                 <div class="input-container">
                     <input type="text" id="username" name="username" placeholder=" " required>
                     <label for="username">Username</label>
-                    <span id="username-checkmark" class="checkmark"><i class="fas fa-check"></i></span>
-                    <span id="username-cross" class="checkmark invalid"><i class="fas fa-times"></i></span>
+                    <span id="username-checkmark" class="checkmark">✓</span>
+                    <span id="username-cross" class="checkmark invalid">✗</span>
                     <div id="username-error" class="error-message"></div>
                 </div>
                 
                 <div class="input-container">
                     <input type="email" id="email" name="email" placeholder=" " required>
                     <label for="email">Email</label>
-                    <span id="email-checkmark" class="checkmark"><i class="fas fa-check"></i></span>
-                    <span id="email-cross" class="checkmark invalid"><i class="fas fa-times"></i></span>
+                    <span id="email-checkmark" class="checkmark">✓</span>
+                    <span id="email-cross" class="checkmark invalid">✗</span>
                     <div id="email-error" class="error-message"></div>
                 </div>
                 
                 <div class="input-container password-container">
                     <input type="password" id="password" name="password" placeholder=" " required>
                     <label for="password">Password</label>
-                    <span class="info-icon" onclick="togglePasswordModal()"><i class="fas fa-info-circle"></i></span>
-                    <span class="eye-icon" onclick="togglePassword('password')"><i class="fas fa-eye"></i></span>
-                    <span id="password-checkmark" class="checkmark"><i class="fas fa-check"></i></span>
-                    <span id="password-cross" class="checkmark invalid"><i class="fas fa-times"></i></span>
+                    <span class="info-icon" onclick="togglePasswordModal()">ℹ️</span>
+                    <span class="eye-icon" onclick="togglePassword('password')">👁️</span>
+                    <span id="password-checkmark" class="checkmark">✓</span>
+                    <span id="password-cross" class="checkmark invalid">✗</span>
                     <div id="password-error" class="error-message"></div>
                 </div>
                 
                 <div class="input-container password-container">
                     <input type="password" id="confirmPassword" name="confirmPassword" placeholder=" " required>
                     <label for="confirmPassword">Confirm Password</label>
-                    <span class="eye-icon" onclick="togglePassword('confirmPassword')"><i class="fas fa-eye"></i></span>
-                    <span id="confirm-password-checkmark" class="checkmark"><i class="fas fa-check"></i></span>
-                    <span id="confirm-password-cross" class="checkmark invalid"><i class="fas fa-times"></i></span>
+                    <span class="eye-icon" onclick="togglePassword('confirmPassword')">👁️</span>
+                    <span id="confirm-password-checkmark" class="checkmark">✓</span>
+                    <span id="confirm-password-cross" class="checkmark invalid">✗</span>
                     <div id="confirm-password-error" class="error-message"></div>
                 </div>
                 
@@ -665,320 +661,320 @@
         </div>
     </div>
 
-    <script>
-        // DOM Elements
-        const usernameInput = document.getElementById('username');
-        const emailInput = document.getElementById('email');
-        const passwordInput = document.getElementById('password');
-        const confirmPasswordInput = document.getElementById('confirmPassword');
-        const profileImageInput = document.getElementById('profileImage');
-        const signupButton = document.getElementById('signupButton');
-        const fileNameDisplay = document.getElementById('file-name');
+ <script>
+    // DOM Elements
+    const usernameInput = document.getElementById('username');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+    const profileImageInput = document.getElementById('profileImage');
+    const signupButton = document.getElementById('signupButton');
+    const fileNameDisplay = document.getElementById('file-name');
 
-        // Validation flags
-        let isUsernameValid = false;
-        let isEmailValid = false;
-        let isPasswordValid = false;
-        let isConfirmPasswordValid = false;
+    // Validation flags
+    let isUsernameValid = false;
+    let isEmailValid = false;
+    let isPasswordValid = false;
+    let isConfirmPasswordValid = false;
 
-        // Show Alert
-        function showAlert(type, message) {
-            const alert = document.createElement('div');
-            alert.className = `alert ${type}`;
-            alert.innerHTML = `
-                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
-                ${message}
-            `;
-            document.body.appendChild(alert);
-            setTimeout(() => alert.remove(), 3000);
-        }
+    // Show Alert
+    function showAlert(type, message) {
+        const alert = document.createElement('div');
+        alert.className = `alert ${type}`;
+        alert.innerHTML = `
+            <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+            ${message}
+        `;
+        document.body.appendChild(alert);
+        setTimeout(() => alert.remove(), 3000);
+    }
 
-        // Toggle password visibility
-        function togglePassword(id) {
-            const passwordInput = document.getElementById(id);
-            const eyeIcon = passwordInput.parentElement.querySelector('.eye-icon i');
-            passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
-            eyeIcon.className = passwordInput.type === 'password' ? 'fas fa-eye' : 'fas fa-eye-slash';
-        }
+    // Toggle password visibility
+    function togglePassword(id) {
+        const passwordInput = document.getElementById(id);
+        const eyeIcon = passwordInput.parentElement.querySelector('.eye-icon');
+        passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
+        eyeIcon.textContent = passwordInput.type === 'password' ? '👁️' : '🔓';
+    }
 
-        // Toggle password requirements modal
-        function togglePasswordModal() {
-            const modal = document.getElementById('passwordModal');
-            modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
-        }
+    // Toggle password requirements modal
+    function togglePasswordModal() {
+        const modal = document.getElementById('passwordModal');
+        modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+    }
 
-        // Update signup button state
-        function updateSignupButton() {
-            signupButton.disabled = !(isUsernameValid && isEmailValid && isPasswordValid && isConfirmPasswordValid);
-        }
+    // Update signup button state
+    function updateSignupButton() {
+        signupButton.disabled = !(isUsernameValid && isEmailValid && isPasswordValid && isConfirmPasswordValid);
+    }
 
-        // Validate username
-        function validateUsername() {
-            const username = usernameInput.value;
-            const errorElement = document.getElementById('username-error');
-            const checkmark = document.getElementById('username-checkmark');
-            const cross = document.getElementById('username-cross');
-            
-            const usernameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
-            
-            if (!username) {
-                errorElement.textContent = 'Username is required';
-                checkmark.style.display = 'none';
-                cross.style.display = 'block';
-                isUsernameValid = false;
-            } else if (username !== username.trim()) {
-                errorElement.textContent = 'No leading or trailing spaces allowed';
-                checkmark.style.display = 'none';
-                cross.style.display = 'block';
-                isUsernameValid = false;
-            } else if (username.length < 3) {
-                errorElement.textContent = 'Username must be at least 3 characters';
-                checkmark.style.display = 'none';
-                cross.style.display = 'block';
-                isUsernameValid = false;
-            } else if (/ {2,}/.test(username)) {
-                errorElement.textContent = 'No consecutive spaces allowed';
-                checkmark.style.display = 'none';
-                cross.style.display = 'block';
-                isUsernameValid = false;
-            } else if (!usernameRegex.test(username)) {
-                errorElement.textContent = 'Only alphabets and single spaces allowed';
-                checkmark.style.display = 'none';
-                cross.style.display = 'block';
-                isUsernameValid = false;
-            } else {
-                errorElement.textContent = '';
-                checkmark.style.display = 'block';
-                cross.style.display = 'none';
-                isUsernameValid = true;
-            }
-            updateSignupButton();
-        }
-
-        // Validate email
-        async function validateEmail() {
-            const email = emailInput.value;
-            const errorElement = document.getElementById('email-error');
-            const checkmark = document.getElementById('email-checkmark');
-            const cross = document.getElementById('email-cross');
-            
-            errorElement.textContent = '';
+    // Validate username
+    function validateUsername() {
+        const username = usernameInput.value;
+        const errorElement = document.getElementById('username-error');
+        const checkmark = document.getElementById('username-checkmark');
+        const cross = document.getElementById('username-cross');
+        
+        const usernameRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+        
+        if (!username) {
+            errorElement.textContent = 'Username is required';
             checkmark.style.display = 'none';
+            cross.style.display = 'block';
+            isUsernameValid = false;
+        } else if (username !== username.trim()) {
+            errorElement.textContent = 'No leading or trailing spaces allowed';
+            checkmark.style.display = 'none';
+            cross.style.display = 'block';
+            isUsernameValid = false;
+        } else if (username.length < 3) {
+            errorElement.textContent = 'Username must be at least 3 characters';
+            checkmark.style.display = 'none';
+            cross.style.display = 'block';
+            isUsernameValid = false;
+        } else if (/ {2,}/.test(username)) {
+            errorElement.textContent = 'No consecutive spaces allowed';
+            checkmark.style.display = 'none';
+            cross.style.display = 'block';
+            isUsernameValid = false;
+        } else if (!usernameRegex.test(username)) {
+            errorElement.textContent = 'Only alphabets and single spaces allowed';
+            checkmark.style.display = 'none';
+            cross.style.display = 'block';
+            isUsernameValid = false;
+        } else {
+            errorElement.textContent = '';
+            checkmark.style.display = 'block';
             cross.style.display = 'none';
-            
-            const emailRegex = /^[a-zA-Z0-9]+([._-][a-zA-Z0-9]+)*@astrolitetech\.com$/;
-            
-            if (!email) {
-                errorElement.textContent = 'Email is required';
-                errorElement.style.color = '#ff3333';
-                cross.style.display = 'block';
-                isEmailValid = false;
-            } else if (email !== email.trim()) {
-                errorElement.textContent = 'No leading or trailing spaces allowed';
-                errorElement.style.color = '#ff3333';
-                cross.style.display = 'block';
-                isEmailValid = false;
-            } else if (email.includes(' ')) {
-                errorElement.textContent = 'No spaces allowed';
-                errorElement.style.color = '#ff3333';
-                cross.style.display = 'block';
-                isEmailValid = false;
-            } else if (/[._-]{2,}/.test(email)) {
-                errorElement.textContent = 'No consecutive dots, underscores, or hyphens';
-                errorElement.style.color = '#ff3333';
-                cross.style.display = 'block';
-                isEmailValid = false;
-            } else if (!emailRegex.test(email)) {
-                errorElement.textContent = 'Only astrolitetech.com domain allowed';
-                errorElement.style.color = '#ff3333';
-                cross.style.display = 'block';
-                isEmailValid = false;
-            } else {
-                try {
-                    errorElement.textContent = 'Checking email availability...';
-                    errorElement.style.color = '#0077ff';
-                    
-                    const response = await fetch('http://13.50.16.239:3404/check-email-data', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ email })
-                    });
-                    
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    
-                    const data = await response.json();
-                    
-                    if (data.exists) {
-                        errorElement.textContent = 'Email already in use';
-                        errorElement.style.color = '#ff3333';
-                        cross.style.display = 'block';
-                        isEmailValid = false;
-                        showAlert('error', 'This email is already registered');
-                    } else {
-                        errorElement.textContent = 'Email is available';
-                        errorElement.style.color = '#28a745';
-                        checkmark.style.display = 'block';
-                        isEmailValid = true;
-                    }
-                } catch (err) {
-                    errorElement.textContent = 'Error checking email availability';
-                    errorElement.style.color = '#ff3333';
-                    cross.style.display = 'block';
-                    isEmailValid = false;
-                    showAlert('error', 'Error connecting to server');
-                }
-            }
-            updateSignupButton();
+            isUsernameValid = true;
         }
+        updateSignupButton();
+    }
 
-        // Validate password
-        function validatePassword() {
-            const password = passwordInput.value;
-            const errorElement = document.getElementById('password-error');
-            const checkmark = document.getElementById('password-checkmark');
-            const cross = document.getElementById('password-cross');
-            
-            const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
-            
-            if (!password) {
-                errorElement.textContent = 'Password is required';
-                checkmark.style.display = 'none';
-                cross.style.display = 'block';
-                isPasswordValid = false;
-            } else if (password !== password.trim()) {
-                errorElement.textContent = 'No leading or trailing spaces allowed';
-                checkmark.style.display = 'none';
-                cross.style.display = 'block';
-                isPasswordValid = false;
-            } else if (password.includes(' ')) {
-                errorElement.textContent = 'No spaces allowed';
-                checkmark.style.display = 'none';
-                cross.style.display = 'block';
-                isPasswordValid = false;
-            } else if (password.length < 8) {
-                errorElement.textContent = 'Password must be at least 8 characters';
-                checkmark.style.display = 'none';
-                cross.style.display = 'block';
-                isPasswordValid = false;
-            } else if (!passwordRegex.test(password)) {
-                errorElement.textContent = 'Include uppercase, number, and special character';
-                checkmark.style.display = 'none';
-                cross.style.display = 'block';
-                isPasswordValid = false;
-            } else {
-                errorElement.textContent = '';
-                checkmark.style.display = 'block';
-                cross.style.display = 'none';
-                isPasswordValid = true;
-            }
-            validateConfirmPassword();
-            updateSignupButton();
-        }
-
-        // Validate confirm password
-        function validateConfirmPassword() {
-            const password = passwordInput.value;
-            const confirmPassword = confirmPasswordInput.value;
-            const errorElement = document.getElementById('confirm-password-error');
-            const checkmark = document.getElementById('confirm-password-checkmark');
-            const cross = document.getElementById('confirm-password-cross');
-            
-            if (!confirmPassword) {
-                errorElement.textContent = 'Please confirm your password';
-                checkmark.style.display = 'none';
-                cross.style.display = 'block';
-                isConfirmPasswordValid = false;
-            } else if (confirmPassword !== password) {
-                errorElement.textContent = 'Passwords do not match';
-                checkmark.style.display = 'none';
-                cross.style.display = 'block';
-                isConfirmPasswordValid = false;
-            } else {
-                errorElement.textContent = '';
-                checkmark.style.display = 'block';
-                cross.style.display = 'none';
-                isConfirmPasswordValid = true;
-            }
-            updateSignupButton();
-        }
-
-        // Handle file input change
-        profileImageInput.addEventListener('change', function() {
-            if (this.files && this.files[0]) {
-                fileNameDisplay.textContent = this.files[0].name;
-            } else {
-                fileNameDisplay.textContent = '';
-            }
-        });
-
-        // Event listeners for real-time validation
-        usernameInput.addEventListener('input', validateUsername);
-        emailInput.addEventListener('input', validateEmail);
-        passwordInput.addEventListener('input', validatePassword);
-        confirmPasswordInput.addEventListener('input', validateConfirmPassword);
-
-        // Form submission
-        document.getElementById('signupForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            // Validate all fields again before submission
-            validateUsername();
-            await validateEmail();
-            validatePassword();
-            validateConfirmPassword();
-            
-            if (!isUsernameValid || !isEmailValid || !isPasswordValid || !isConfirmPasswordValid) {
-                showAlert('error', 'Please fix all errors before submitting');
-                return;
-            }
-
-            const formData = new FormData();
-            formData.append('username', usernameInput.value);
-            formData.append('email', emailInput.value);
-            formData.append('password', passwordInput.value);
-            if (profileImageInput.files[0]) {
-                formData.append('profileImage', profileImageInput.files[0]);
-            }
-            
+    // Validate email
+    async function validateEmail() {
+        const email = emailInput.value;
+        const errorElement = document.getElementById('email-error');
+        const checkmark = document.getElementById('email-checkmark');
+        const cross = document.getElementById('email-cross');
+        
+        errorElement.textContent = '';
+        checkmark.style.display = 'none';
+        cross.style.display = 'none';
+        
+        const emailRegex = /^[a-zA-Z0-9]+([._-][a-zA-Z0-9]+)*@(gmail\.com|outlook\.com)$/;
+        
+        if (!email) {
+            errorElement.textContent = 'Email is required';
+            errorElement.style.color = '#ff3333';
+            cross.style.display = 'block';
+            isEmailValid = false;
+        } else if (email !== email.trim()) {
+            errorElement.textContent = 'No leading or trailing spaces allowed';
+            errorElement.style.color = '#ff3333';
+            cross.style.display = 'block';
+            isEmailValid = false;
+        } else if (email.includes(' ')) {
+            errorElement.textContent = 'No spaces allowed';
+            errorElement.style.color = '#ff3333';
+            cross.style.display = 'block';
+            isEmailValid = false;
+        } else if (/[._-]{2,}/.test(email)) {
+            errorElement.textContent = 'No consecutive dots, underscores, or hyphens';
+            errorElement.style.color = '#ff3333';
+            cross.style.display = 'block';
+            isEmailValid = false;
+        } else if (!emailRegex.test(email)) {
+            errorElement.textContent = 'Only gmail.com or outlook.com domains allowed';
+            errorElement.style.color = '#ff3333';
+            cross.style.display = 'block';
+            isEmailValid = false;
+        } else {
             try {
-                signupButton.disabled = true;
-                signupButton.textContent = 'Signing Up...';
+                errorElement.textContent = 'Checking email availability...';
+                errorElement.style.color = '#0077ff';
                 
-                const response = await fetch('http://13.50.16.239:3404/api/signup', {
+                const response = await fetch('http://13.50.16.239:3404/check-email-data', {
                     method: 'POST',
-                    body: formData
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
                 });
+                
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
                 
                 const data = await response.json();
                 
-                if (!response.ok) {
-                    throw new Error(data.error || 'Signup failed');
+                if (data.exists) {
+                    errorElement.textContent = 'Email already in use';
+                    errorElement.style.color = '#ff3333';
+                    cross.style.display = 'block';
+                    isEmailValid = false;
+                    showAlert('error', 'This email is already registered');
+                } else {
+                    errorElement.textContent = 'Email is available';
+                    errorElement.style.color = '#28a745';
+                    checkmark.style.display = 'block';
+                    isEmailValid = true;
                 }
-                
-                showAlert('success', data.message || 'Signup successful!');
-                
-                // Redirect after successful signup
-                setTimeout(() => {
-                    window.location.href = 'http://13.50.16.239:8012/login.html';
-                }, 2000);
             } catch (err) {
-                showAlert('error', err.message || 'Signup failed. Please try again.');
-                console.error('Signup error:', err);
-            } finally {
-                signupButton.disabled = false;
-                signupButton.textContent = 'Sign Up';
+                errorElement.textContent = 'Error checking email availability';
+                errorElement.style.color = '#ff3333';
+                cross.style.display = 'block';
+                isEmailValid = false;
+                showAlert('error', 'Error connecting to server');
             }
-        });
+        }
+        updateSignupButton();
+    }
 
-        // Close modal when clicking outside
-        window.addEventListener('click', (e) => {
-            const modal = document.getElementById('passwordModal');
-            if (e.target === modal) {
-                modal.style.display = 'none';
+    // Validate password
+    function validatePassword() {
+        const password = passwordInput.value;
+        const errorElement = document.getElementById('password-error');
+        const checkmark = document.getElementById('password-checkmark');
+        const cross = document.getElementById('password-cross');
+        
+        const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+        
+        if (!password) {
+            errorElement.textContent = 'Password is required';
+            checkmark.style.display = 'none';
+            cross.style.display = 'block';
+            isPasswordValid = false;
+        } else if (password !== password.trim()) {
+            errorElement.textContent = 'No leading or trailing spaces allowed';
+            checkmark.style.display = 'none';
+            cross.style.display = 'block';
+            isPasswordValid = false;
+        } else if (password.includes(' ')) {
+            errorElement.textContent = 'No spaces allowed';
+            checkmark.style.display = 'none';
+            cross.style.display = 'block';
+            isPasswordValid = false;
+        } else if (password.length < 8) {
+            errorElement.textContent = 'Password must be at least 8 characters';
+            checkmark.style.display = 'none';
+            cross.style.display = 'block';
+            isPasswordValid = false;
+        } else if (!passwordRegex.test(password)) {
+            errorElement.textContent = 'Include uppercase, number, and special character';
+            checkmark.style.display = 'none';
+            cross.style.display = 'block';
+            isPasswordValid = false;
+        } else {
+            errorElement.textContent = '';
+            checkmark.style.display = 'block';
+            cross.style.display = 'none';
+            isPasswordValid = true;
+        }
+        validateConfirmPassword();
+        updateSignupButton();
+    }
+
+    // Validate confirm password
+    function validateConfirmPassword() {
+        const password = passwordInput.value;
+        const confirmPassword = confirmPasswordInput.value;
+        const errorElement = document.getElementById('confirm-password-error');
+        const checkmark = document.getElementById('confirm-password-checkmark');
+        const cross = document.getElementById('confirm-password-cross');
+        
+        if (!confirmPassword) {
+            errorElement.textContent = 'Please confirm your password';
+            checkmark.style.display = 'none';
+            cross.style.display = 'block';
+            isConfirmPasswordValid = false;
+        } else if (confirmPassword !== password) {
+            errorElement.textContent = 'Passwords do not match';
+            checkmark.style.display = 'none';
+            cross.style.display = 'block';
+            isConfirmPasswordValid = false;
+        } else {
+            errorElement.textContent = '';
+            checkmark.style.display = 'block';
+            cross.style.display = 'none';
+            isConfirmPasswordValid = true;
+        }
+        updateSignupButton();
+    }
+
+    // Handle file input change
+    profileImageInput.addEventListener('change', function() {
+        if (this.files && this.files[0]) {
+            fileNameDisplay.textContent = this.files[0].name;
+        } else {
+            fileNameDisplay.textContent = '';
+        }
+    });
+
+    // Event listeners for real-time validation
+    usernameInput.addEventListener('input', validateUsername);
+    emailInput.addEventListener('input', validateEmail);
+    passwordInput.addEventListener('input', validatePassword);
+    confirmPasswordInput.addEventListener('input', validateConfirmPassword);
+
+    // Form submission
+    document.getElementById('signupForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // Validate all fields again before submission
+        validateUsername();
+        await validateEmail();
+        validatePassword();
+        validateConfirmPassword();
+        
+        if (!isUsernameValid || !isEmailValid || !isPasswordValid || !isConfirmPasswordValid) {
+            showAlert('error', 'Please fix all errors before submitting');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('username', usernameInput.value);
+        formData.append('email', emailInput.value);
+        formData.append('password', passwordInput.value);
+        if (profileImageInput.files[0]) {
+            formData.append('profileImage', profileImageInput.files[0]);
+        }
+        
+        try {
+            signupButton.disabled = true;
+            signupButton.textContent = 'Signing Up...';
+            
+            const response = await fetch('http://13.50.16.239:3404/api/signup', {
+                method: 'POST',
+                body: formData
+            });
+            
+            const data = await response.json();
+            
+            if (!response.ok) {
+                throw new Error(data.error || 'Signup failed');
             }
-        });
-    </script>
+            
+            showAlert('success', data.message || 'Signup successful!');
+            
+            // Redirect after successful signup
+            setTimeout(() => {
+                window.location.href = 'http://13.50.16.239:8012/login.html';
+            }, 2000);
+        } catch (err) {
+            showAlert('error', err.message || 'Signup failed. Please try again.');
+            console.error('Signup error:', err);
+        } finally {
+            signupButton.disabled = false;
+            signupButton.textContent = 'Sign Up';
+        }
+    });
+
+    // Close modal when clicking outside
+    window.addEventListener('click', (e) => {
+        const modal = document.getElementById('passwordModal');
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+</script>
 </body>
 </html>
